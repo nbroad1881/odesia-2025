@@ -1,0 +1,94 @@
+hydra:
+  job:
+    env_set:
+      WANDB_RUN_GROUP: clm
+      TOKENIZERS_PARALLELISM: false
+      HF_HUB_ENABLE_HF_TRANSFER: 0
+
+time_start:
+
+# custom 
+DEBUG: no
+debug_model: unsloth/Qwen2.5-7B-bnb-4bit
+
+fold: 0
+random_seed: yes
+train_on_all_folds: no
+eval_only: no
+merge_adapters: no
+wandb_id: #y5xxeur2
+val_split_name: val
+pad_token: <pad>
+
+
+hub_repo_tags:
+  - odesia
+
+script_args:
+  dataset_name: nbroad/odesia-combined-v1
+  config: 
+  gradient_checkpointing_use_reentrant: yes
+  ignore_bias_buffers: no
+
+model_config:
+  model_name_or_path: "mistralai/Ministral-8B-Instruct-2410"
+  torch_dtype: bfloat16
+  attn_implementation: sdpa
+  use_peft: yes
+  lora_r: 16
+  lora_alpha: 32
+  lora_dropout: 0.05
+  lora_target_modules: 
+    - q_proj
+    - v_proj
+    - k_proj
+    - o_proj
+    - up_proj
+    - down_proj
+    - gate_proj
+  lora_modules_to_save: 
+  lora_task_type: CAUSAL_LM
+  use_rslora: yes
+  load_in_8bit: no
+  load_in_4bit: no
+  bnb_4bit_quant_type: nf4
+  use_bnb_nested_quant: yes
+
+
+training_args:
+
+  resume_from_checkpoint: 
+  output_dir: ./
+  num_train_epochs: 3
+  per_device_train_batch_size: 1
+  per_device_eval_batch_size: 4
+  warmup_ratio: 0.05
+  fp16: no
+  bf16: yes
+  eval_strategy: "steps"
+  save_strategy: "steps"
+  eval_steps: 100
+  save_steps: 100
+  save_total_limit: 2
+  logging_steps: 2
+  run_name:
+  weight_decay: 0.01
+  report_to: "wandb"
+  learning_rate: 8e-5
+  metric_for_best_model: "accuracy"
+  greater_is_better: yes
+  gradient_checkpointing: yes
+  gradient_accumulation_steps: 16
+  gradient_checkpointing_kwargs:
+    use_reentrant: yes
+  optim: "adamw_8bit"
+  dataloader_num_workers: 1
+  seed: 18
+  max_grad_norm: 0.3
+  load_best_model_at_end: yes
+  push_to_hub: no
+  hub_private_repo: yes
+  lr_scheduler_type: cosine
+  remove_unused_columns: no
+  ddp_find_unused_parameters: no
+  use_liger_kernel: yes
