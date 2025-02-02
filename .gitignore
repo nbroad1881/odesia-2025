@@ -180,3 +180,6 @@ tokenizer.model
 .env*
 
 data/*
+
+predict/**/.gitattributes
+predict/**/README.md

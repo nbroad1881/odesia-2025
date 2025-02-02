@@ -12,6 +12,10 @@ pip install flash-attn --no-build-isolation
 pip install scipy
 pip install liger-kernel
 
+
+sudo rm -rf /usr/lib/python3/dist-packages/tensorflow
+sudo rm -rf /usr/lib/python3/dist-packages/keras
+
 export HF_HUB_ENABLE_HF_TRANSFER=1
 
 # huggingface-cli download unsloth/Qwen2.5-7B-bnb-4bit --cache-dir /workspace

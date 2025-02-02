@@ -27,7 +27,7 @@ hub_repo_tags:
   - odesia
 
 script_args:
-  dataset_name: nbroad/odesia-combined-v2
+  dataset_name: nbroad/odesia-combined-v3
   config: 
   gradient_checkpointing_use_reentrant: yes
   ignore_bias_buffers: no

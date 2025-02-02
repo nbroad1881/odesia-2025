@@ -154,12 +154,11 @@ def main(cfg: DictConfig):
             token=os.environ["HF_WRITE_PERSONAL"],
         )
 
-# hack to downsample english squad
-        # ds["train"] = concatenate_datasets(
-        #     [
-        #         ds["train"].select(range(0, 45000)),
-        #         ds["train"].select(range(98596, len(ds["train"]))),
-        #                                  ])
+        ds["train"] = concatenate_datasets(
+            [
+                ds["train"].select(range(0, 38000)),
+                ds["train"].select(range(98596, len(ds["train"]))),
+                                         ])
 
         if cfg.DEBUG:
             ds[cfg.train_split_name] = (

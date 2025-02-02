@@ -1,0 +1,80 @@
+
+base_model: mistralai/Ministral-8B-Instruct-2410
+lora_path: f0utp5v4
+pad_token: "<pad>"
+eos_token: "</s>"
+split_one: "[/INST]"
+data_dir: /drive2/kaggle/odesia/data/host
+preds_dir: /drive2/kaggle/odesia/predict/ministral_v1
+output_dir: /drive2/kaggle/odesia/predict/mini_v1_df
+
+# exist 2022 uses numbers to enumerate answer options
+# exist 2023 uses letters to enumerate answer options
+number_ids:
+  - 1049
+  - 1050
+  - 1051
+  - 1052
+  - 1053
+  - 1054
+
+
+# none of the following
+# dipromats_2023/test_t1_es
+# dipromats_2023/test_t1_en
+# dipromats_2023/test_t2_es
+# dipromats_2023/test_t2_en
+# exist_2022/test_t1_es
+# exist_2022/test_t1_en
+
+
+
+tasks:
+  # # # - "diann_2023/test_t1_es"
+  - "dipromats_2023/test_t3_es"
+  - "exist_2022/test_t2_es"
+  - "exist_2023/test_t1_es"
+  - "exist_2023/test_t2_es"
+  - "exist_2023/test_t3_es"
+  - "sqac_squad_2024/test_t1_es"
+  - "diann_2023/test_t1_en"
+  - "dipromats_2023/test_t3_en"
+  - "exist_2022/test_t2_en"
+  - "exist_2023/test_t1_en"
+  - "exist_2023/test_t2_en"
+  - "exist_2023/test_t3_en"
+  - "sqac_squad_2024/test_t1_en"
+  - "diann_2023/val_t1_es"
+  - "dipromats_2023/val_t3_es"
+  - "exist_2022/val_t2_es"
+  - "exist_2023/val_t1_es"
+  - "exist_2023/val_t2_es"
+  - "exist_2023/val_t3_es"
+  - "sqac_squad_2024/val_t1_es"
+  - "diann_2023/val_t1_en"
+  - "dipromats_2023/val_t3_en"
+  - "exist_2022/val_t2_en"
+  - "exist_2023/val_t1_en"
+  - "exist_2023/val_t2_en"
+  - "exist_2023/val_t3_en"
+  - "sqac_squad_2024/val_t1_en"
+
+max_num_tokens:
+  "diann_2023": 100
+  "dipromats_2023": 100
+  "exist_2022": 1
+  "exist_2023/test_t1": 1
+  "exist_2023/test_t2": 1
+  "exist_2023/test_t3": 100
+  "sqac_squad_2024": 100
+
+
+batch_sizes:
+  "diann_2023": 8
+  "dipromats_2023": 16
+  "exist_2022": 8
+  "exist_2023/test_t1": 16
+  "exist_2023/test_t2": 16
+  "exist_2023/test_t3": 16
+  "sqac_squad_2024": 4
+
