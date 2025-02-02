@@ -99,11 +99,12 @@ def main(cfg: DictConfig):
         from liger_kernel.transformers import (
             apply_liger_kernel_to_qwen2,
             apply_liger_kernel_to_llama,
+            apply_liger_kernel_to_mistral,
         )
 
         apply_liger_kernel_to_qwen2()
         apply_liger_kernel_to_llama()
-
+        apply_liger_kernel_to_mistral()
     if cfg.eval_only:
 
         model = AutoPeftModelForSequenceClassification.from_pretrained(
@@ -129,7 +130,7 @@ def main(cfg: DictConfig):
         token=os.environ["HF_GATED"],
     )
 
-    tokenizer.padding_side = "right"
+    tokenizer.padding_side = "left"
     tokenizer.pad_token = cfg.pad_token
 
 
