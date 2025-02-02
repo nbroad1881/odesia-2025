@@ -19,7 +19,9 @@ merge_adapters: no
 wandb_id: #y5xxeur2
 val_split_name: val
 pad_token: <pad>
-
+response_template_ids: 
+  - 4
+num_proc: 20
 
 hub_repo_tags:
   - odesia
@@ -33,7 +35,7 @@ script_args:
 model_config:
   model_name_or_path: "mistralai/Ministral-8B-Instruct-2410"
   torch_dtype: bfloat16
-  attn_implementation: sdpa
+  attn_implementation: flash_attention_2
   use_peft: yes
   lora_r: 16
   lora_alpha: 32
@@ -59,10 +61,10 @@ training_args:
 
   resume_from_checkpoint: 
   output_dir: ./
-  num_train_epochs: 3
-  per_device_train_batch_size: 1
-  per_device_eval_batch_size: 4
-  warmup_ratio: 0.05
+  num_train_epochs: 1
+  per_device_train_batch_size: 8
+  per_device_eval_batch_size: 8
+  warmup_ratio: 0.1
   fp16: no
   bf16: yes
   eval_strategy: "steps"
@@ -74,19 +76,19 @@ training_args:
   run_name:
   weight_decay: 0.01
   report_to: "wandb"
-  learning_rate: 8e-5
-  metric_for_best_model: "accuracy"
-  greater_is_better: yes
+  learning_rate: 6e-5
+  metric_for_best_model: "loss"
+  greater_is_better: no
   gradient_checkpointing: yes
-  gradient_accumulation_steps: 16
+  gradient_accumulation_steps: 8
   gradient_checkpointing_kwargs:
     use_reentrant: yes
-  optim: "adamw_8bit"
-  dataloader_num_workers: 1
+  optim: "adamw_torch"
+  dataloader_num_workers: 4
   seed: 18
-  max_grad_norm: 0.3
+  max_grad_norm: 2.0
   load_best_model_at_end: yes
-  push_to_hub: no
+  push_to_hub: yes
   hub_private_repo: yes
   lr_scheduler_type: cosine
   remove_unused_columns: no

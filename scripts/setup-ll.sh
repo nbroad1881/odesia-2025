@@ -5,7 +5,7 @@ git config --global user.name $GITHUB_NAME
 
 # git clone https://github.com/nbroad1881/odesia-2025.git
 
-pip install "unsloth[cu124-ampere-torch240] @ git+https://github.com/unslothai/unsloth.git"
+# pip install "unsloth[cu124-ampere-torch240] @ git+https://github.com/unslothai/unsloth.git"
 pip install -r requirements.txt
 
 pip install flash-attn --no-build-isolation
