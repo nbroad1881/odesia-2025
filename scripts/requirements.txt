@@ -1,0 +1,11 @@
+transformers
+wandb
+accelerate
+trl
+peft
+hf_transfer
+huggingface_hub
+hydra-core
+datasets
+python-dotenv
+jinja2>=3.1.0
