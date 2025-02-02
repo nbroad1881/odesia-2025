@@ -4,7 +4,7 @@ from transformers import (
     Trainer,
     TrainingArguments,
 )
-from datasets import load_dataset
+from datasets import load_dataset, concatenate_datasets
 from omegaconf import DictConfig, OmegaConf
 import hydra
 import wandb
@@ -153,6 +153,12 @@ def main(cfg: DictConfig):
             script_args.config,
             token=os.environ["HF_WRITE_PERSONAL"],
         )
+
+        ds["train"] = concatenate_datasets(
+            [
+                ds["train"].select(range(0, 45000)),
+                ds["train"].select(range(98596, len(ds["train"]))),
+                                         ])
 
         if cfg.DEBUG:
             ds[cfg.train_split_name] = (
