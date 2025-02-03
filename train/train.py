@@ -165,10 +165,10 @@ def main(cfg: DictConfig):
             ds[cfg.train_split_name] = (
                 ds[cfg.train_split_name].shuffle().select(range(100))
             )
-            ds[cfg.val_split_name] = ds[cfg.val_split_name].shuffle().select(range(100))
+            # ds[cfg.val_split_name] = ds[cfg.val_split_name].shuffle().select(range(100))
 
-        if not cfg.eval_only:
-            ds[cfg.val_split_name] = ds[cfg.val_split_name].shuffle().select(range(500))
+        # if not cfg.eval_only:
+            # ds[cfg.val_split_name] = ds[cfg.val_split_name].shuffle().select(range(500))
 
         ds = ds.map(tokenize, fn_kwargs={"tokenizer": tokenizer}, num_proc=cfg.num_proc, remove_columns=ds["train"].column_names)
 
