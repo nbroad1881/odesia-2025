@@ -76,7 +76,7 @@ training_args:
   run_name:
   weight_decay: 0.01
   report_to: "wandb"
-  learning_rate: 7e-5
+  learning_rate: 5e-5
   metric_for_best_model: "loss"
   greater_is_better: no
   gradient_checkpointing: yes
